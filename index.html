@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - E-commerce Demo</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" data-testid="main-navigation">
+        <div class="nav-container">
+            <div class="nav-logo" data-testid="logo">
+                <i class="fas fa-shopping-bag"></i>
+                <span>TechStore</span>
+            </div>
+            
+            <div class="nav-menu" data-testid="nav-menu">
+                <a href="#" class="nav-link active" data-page="home" data-testid="home-link">Home</a>
+                <a href="#" class="nav-link" data-page="products" data-testid="products-link">Products</a>
+                <a href="#" class="nav-link" data-page="cart" data-testid="cart-link">Cart</a>
+                <a href="#" class="nav-link" data-page="orders" data-testid="orders-link">Orders</a>
+                <a href="#" class="nav-link" data-page="profile" data-testid="profile-link">Profile</a>
+                <a href="#" class="nav-link" data-page="dashboard" data-testid="dashboard-link">Dashboard</a>
+                <a href="#" class="nav-link" data-page="components" data-testid="components-link">Components</a>
+            </div>
+            
+            <div class="nav-actions" data-testid="nav-actions">
+                <button class="search-btn" data-testid="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="cart-btn" data-testid="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" data-testid="cart-count">0</span>
+                </button>
+                <button class="user-btn" data-testid="user-button">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="login-btn" data-testid="login-button" style="display: none;">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Promotional Banner (for dynamic content testing) -->
+    <div class="promo-banner" data-testid="promo-banner" id="promoBanner">
+        <div class="promo-content">
+            <span class="promo-text">🎉 Limited Time: 50% OFF on all Electronics!</span>
+            <button class="promo-close" data-testid="promo-close">&times;</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page active" data-testid="home-page">
+            <div class="hero-section" data-aos="fade-up">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-testid="hero-title">Welcome to TechStore</h1>
+                    <p class="hero-subtitle" data-testid="hero-subtitle">Discover amazing products with cutting-edge technology</p>
+                    <button class="cta-button primary" data-testid="shop-now-button" onclick="showPage('products')">
+                        <i class="fas fa-shopping-bag"></i>
+                        Shop Now
+                    </button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" alt="Hero Image" data-testid="hero-image">
+                </div>
+            </div>
+
+            <div class="features-section" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="section-title" data-testid="features-title">Why Choose TechStore?</h2>
+                <div class="features-grid" data-testid="features-grid">
+                    <div class="feature-card" data-testid="feature-1">
+                        <i class="fas fa-shipping-fast feature-icon"></i>
+                        <h3>Fast Shipping</h3>
+                        <p>Free delivery on orders over $50</p>
+                    </div>
+                    <div class="feature-card" data-testid="feature-2">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <h3>Secure Payment</h3>
+                        <p>100% secure payment processing</p>
+                    </div>
+                    <div class="feature-card" data-testid="feature-3">
+                        <i class="fas fa-headset feature-icon"></i>
+                        <h3>24/7 Support</h3>
+                        <p>Customer support around the clock</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page" data-testid="products-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="products-title">Our Products</h1>
+                <div class="filters" data-testid="product-filters">
+                    <select class="filter-select" data-testid="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="books">Books</option>
+                    </select>
+                    <select class="filter-select" data-testid="price-filter">
+                        <option value="">Any Price</option>
+                        <option value="0-50">$0 - $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100+">$100+</option>
+                    </select>
+                    <button class="filter-btn" data-testid="apply-filters">Apply Filters</button>
+                    <button class="filter-btn secondary" data-testid="reset-filters" onclick="clearFilters()">
+                        <i class="fas fa-undo"></i>
+                        Reset Filters
+                    </button>
+                </div>
+            </div>
+            
+            <div class="products-grid" data-testid="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded -->
+            </div>
+            
+            <div class="pagination" data-testid="pagination">
+                <button class="page-btn" data-testid="prev-page" disabled>Previous</button>
+                <span class="page-info" data-testid="page-info">Page 1 of 3</span>
+                <button class="page-btn" data-testid="next-page">Next</button>
+            </div>
+        </section>
+
+        <!-- Login/Signup Page -->
+        <section id="auth" class="page" data-testid="auth-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="auth-title">Account</h1>
+            </div>
+            
+            <div class="auth-container" data-testid="auth-container">
+                <div class="auth-tabs" data-testid="auth-tabs">
+                    <button class="auth-tab active" data-testid="login-tab" onclick="switchAuthTab('login')">Login</button>
+                    <button class="auth-tab" data-testid="signup-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div class="auth-form" id="loginForm" data-testid="login-form">
+                    <form id="loginFormElement" data-testid="login-form-element">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" name="email" required data-testid="login-email">
+                            <span class="error-message" id="loginEmailError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="password" required data-testid="login-password">
+                            <span class="error-message" id="loginPasswordError"></span>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="remember" data-testid="remember-checkbox">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary full-width" data-testid="login-submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Signup Form -->
+                <div class="auth-form hidden" id="signupForm" data-testid="signup-form">
+                    <form id="signupFormElement" data-testid="signup-form-element">
+                        <div class="form-group">
+                            <label for="signupFirstName">First Name</label>
+                            <input type="text" id="signupFirstName" name="firstName" required data-testid="signup-first-name">
+                            <span class="error-message" id="signupFirstNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLastName">Last Name</label>
+                            <input type="text" id="signupLastName" name="lastName" required data-testid="signup-last-name">
+                            <span class="error-message" id="signupLastNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" name="email" required data-testid="signup-email">
+                            <span class="error-message" id="signupEmailError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" name="password" required data-testid="signup-password">
+                            <span class="error-message" id="signupPasswordError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" name="confirmPassword" required data-testid="signup-confirm-password">
+                            <span class="error-message" id="signupConfirmPasswordError"></span>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required data-testid="terms-checkbox">
+                                <span class="checkmark"></span>
+                                I agree to the Terms and Conditions
+                            </label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary full-width" data-testid="signup-submit">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Detail Page -->
+        <section id="product-detail" class="page" data-testid="product-detail-page">
+            <div class="product-detail-container" data-testid="product-detail-container">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </section>
+
+        <!-- Shopping Cart -->
+        <section id="cart" class="page" data-testid="cart-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="cart-title">Shopping Cart</h1>
+            </div>
+            
+            <div class="cart-container" data-testid="cart-container">
+                <div class="cart-items" data-testid="cart-items" id="cartItems">
+                    <!-- Cart items will be dynamically loaded -->
+                    <div class="empty-cart" data-testid="empty-cart">
+                        <i class="fas fa-shopping-cart empty-cart-icon"></i>
+                        <p>Your cart is empty</p>
+                        <button class="cta-button secondary" data-testid="continue-shopping">Continue Shopping</button>
+                    </div>
+                </div>
+                
+                <div class="cart-summary" data-testid="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span class="cart-subtotal" data-testid="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span class="cart-shipping" data-testid="cart-shipping">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span class="cart-tax" data-testid="cart-tax">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span class="cart-total" data-testid="cart-total">$0.00</span>
+                    </div>
+                    <button class="checkout-btn" data-testid="checkout-button" disabled>
+                        <i class="fas fa-credit-card"></i>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Page -->
+        <section id="orders" class="page" data-testid="orders-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="orders-title">My Orders</h1>
+            </div>
+            
+            <div class="orders-container" data-testid="orders-container">
+                <div class="orders-list" data-testid="orders-list" id="ordersList">
+                    <!-- Orders will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- User Profile -->
+        <section id="profile" class="page" data-testid="profile-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="profile-title">User Profile</h1>
+            </div>
+            
+            <div class="profile-container" data-testid="profile-container">
+                <form class="profile-form" data-testid="profile-form" id="profileForm">
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required data-testid="first-name-input">
+                            <span class="error-message" id="firstNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required data-testid="last-name-input">
+                            <span class="error-message" id="lastNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required data-testid="email-input">
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" data-testid="phone-input">
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Address</h3>
+                        <div class="form-group">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" name="address" data-testid="address-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" data-testid="city-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" data-testid="state-select">
+                                <option value="">Select State</option>
+                                <option value="CA">California</option>
+                                <option value="NY">New York</option>
+                                <option value="TX">Texas</option>
+                                <option value="FL">Florida</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" id="zipCode" name="zipCode" data-testid="zip-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Preferences</h3>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletter" data-testid="newsletter-checkbox">
+                                <span class="checkmark"></span>
+                                Subscribe to newsletter
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="notifications" data-testid="notifications-checkbox">
+                                <span class="checkmark"></span>
+                                Enable push notifications
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" data-testid="cancel-button">Cancel</button>
+                        <button type="submit" class="btn primary" data-testid="save-button">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="page" data-testid="dashboard-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="dashboard-title">Analytics Dashboard</h1>
+            </div>
+            
+            <div class="dashboard-container" data-testid="dashboard-container">
+                <div class="stats-grid" data-testid="stats-grid">
+                    <div class="stat-card" data-testid="revenue-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Revenue</h3>
+                            <p class="stat-value" id="revenueValue">$12,450</p>
+                            <span class="stat-change positive">+15.3%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-testid="orders-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Orders</h3>
+                            <p class="stat-value" id="ordersValue">1,234</p>
+                            <span class="stat-change positive">+8.2%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-testid="customers-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Customers</h3>
+                            <p class="stat-value" id="customersValue">892</p>
+                            <span class="stat-change negative">-2.1%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-testid="conversion-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Conversion</h3>
+                            <p class="stat-value" id="conversionValue">3.24%</p>
+                            <span class="stat-change positive">+0.5%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="charts-grid" data-testid="charts-grid">
+                    <div class="chart-container" data-testid="sales-chart-container">
+                        <h3>Sales Over Time</h3>
+                        <canvas id="salesChart" data-testid="sales-chart"></canvas>
+                    </div>
+                    <div class="chart-container" data-testid="category-chart-container">
+                        <h3>Sales by Category</h3>
+                        <canvas id="categoryChart" data-testid="category-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Component Library -->
+        <section id="components" class="page" data-testid="components-page">
+            <div class="page-header">
+                <h1 class="page-title" data-testid="components-title">Component Library</h1>
+            </div>
+            
+            <div class="components-container" data-testid="components-container">
+                <!-- Buttons -->
+                <div class="component-section" data-testid="buttons-section">
+                    <h3>Buttons</h3>
+                    <div class="component-showcase">
+                        <button class="btn primary" data-testid="primary-button">Primary Button</button>
+                        <button class="btn secondary" data-testid="secondary-button">Secondary Button</button>
+                        <button class="btn success" data-testid="success-button">Success Button</button>
+                        <button class="btn danger" data-testid="danger-button">Danger Button</button>
+                        <button class="btn warning" data-testid="warning-button">Warning Button</button>
+                        <button class="btn info" data-testid="info-button">Info Button</button>
+                        <button class="btn primary" disabled data-testid="disabled-button">Disabled Button</button>
+                    </div>
+                </div>
+
+                <!-- Form Elements -->
+                <div class="component-section" data-testid="forms-section">
+                    <h3>Form Elements</h3>
+                    <div class="component-showcase">
+                        <div class="form-group">
+                            <label>Text Input</label>
+                            <input type="text" placeholder="Enter text..." data-testid="text-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Dropdown</label>
+                            <select data-testid="select-dropdown">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" data-testid="checkbox-input">
+                                <span class="checkmark"></span>
+                                Checkbox Option
+                            </label>
+                        </div>
+                        <div class="form-group radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="radio-group" data-testid="radio-input-1">
+                                <span class="radio-mark"></span>
+                                Radio Option 1
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="radio-group" data-testid="radio-input-2">
+                                <span class="radio-mark"></span>
+                                Radio Option 2
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards -->
+                <div class="component-section" data-testid="cards-section">
+                    <h3>Cards</h3>
+                    <div class="component-showcase">
+                        <div class="card" data-testid="basic-card">
+                            <div class="card-header">
+                                <h4>Basic Card</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>This is a basic card component with header and body.</p>
+                            </div>
+                        </div>
+                        <div class="card featured" data-testid="featured-card">
+                            <div class="card-header">
+                                <h4>Featured Card</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>This is a featured card with special styling.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading States -->
+                <div class="component-section" data-testid="loading-section">
+                    <h3>Loading States</h3>
+                    <div class="component-showcase">
+                        <div class="loading-spinner" data-testid="loading-spinner">
+                            <div class="spinner"></div>
+                        </div>
+                        <div class="loading-skeleton" data-testid="loading-skeleton">
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-line"></div>
+                        </div>
+                        <button class="btn primary loading" data-testid="loading-button">
+                            <span class="btn-spinner"></span>
+                            Loading...
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div class="component-section" data-testid="alerts-section">
+                    <h3>Alerts</h3>
+                    <div class="component-showcase">
+                        <div class="alert success" data-testid="success-alert">
+                            <i class="fas fa-check-circle"></i>
+                            Success! Your changes have been saved.
+                        </div>
+                        <div class="alert warning" data-testid="warning-alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Warning! Please check your input.
+                        </div>
+                        <div class="alert error" data-testid="error-alert">
+                            <i class="fas fa-times-circle"></i>
+                            Error! Something went wrong.
+                        </div>
+                        <div class="alert info" data-testid="info-alert">
+                            <i class="fas fa-info-circle"></i>
+                            Info! Here's some additional information.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" data-testid="modal" id="modal">
+        <div class="modal-content" data-testid="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-testid="modal-title">Modal Title</h3>
+                <button class="modal-close" data-testid="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" data-testid="modal-body">
+                <p>Modal content goes here...</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" data-testid="modal-cancel">Cancel</button>
+                <button class="btn primary" data-testid="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
