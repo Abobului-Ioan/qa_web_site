@@ -75,7 +75,7 @@ function showNotification(message, type = 'info', duration = 3000) {
     
     // Position notification
     notification.style.position = 'fixed';
-    notification.style.top = '100px';
+    notification.style.top = '150px';
     notification.style.right = '20px';
     notification.style.zIndex = '9999';
     notification.style.minWidth = '300px';
