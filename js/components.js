@@ -78,7 +78,7 @@ function showNotification(message, type = 'info', duration = 3000) {
     notification.style.top = '150px';
     notification.style.right = '30px';
     notification.style.zIndex = '9999';
-    notification.style.minWidth = '300px';
+    notification.style.minWidth = '400px';
     
     document.body.appendChild(notification);
     
