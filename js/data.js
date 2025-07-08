@@ -4,7 +4,7 @@
 const products = [
     {
         id: 1,
-        title: "Wireless Headphones style",
+        title: "Wireless Headphones test",
         category: "electronics",
         price: 89.99,
         image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop",
